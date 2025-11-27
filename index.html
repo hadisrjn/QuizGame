@@ -17,10 +17,10 @@
     }
 
     body {
-      font-family: Arial ;
+      font-family: Arial;
       background: radial-gradient(circle at top, #f5e9ff 0, #f5f7ff 40%, #f5f7ff 100%);
       color: #222;
-      overflow: hidden; /* جلوگیری از اسکرول کل صفحه */
+      overflow: hidden;
     }
 
     .app {
@@ -239,21 +239,28 @@
 
     .option-btn {
       position: relative;
-        padding: 12px 10px;
-        border-radius: 14px;          /* rounded corners like before */
-        border: 2px solid #d2d9e7;
-        cursor: pointer;
-        background: #f0f8ff;          /* white card */
-        transition:
-          transform 0.08s ease,
-          box-shadow 0.08s ease,
-          border-color 0.08s ease,
-          background 0.08s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 70px;
-        width: 100%;
+      padding: 12px 10px;
+      border-radius: 14px;
+      border: 2px solid #d2d9e7;
+      cursor: pointer;
+      background: #f0f8ff;
+      transition:
+        transform 0.08s ease,
+        box-shadow 0.08s ease,
+        border-color 0.08s ease,
+        background 0.08s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 70px;
+      width: 100%;
+    }
+
+    .option-content {
+      display: inline-flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
     }
 
     .option-btn img.flag {
@@ -267,7 +274,7 @@
       font-size: 14px;
       font-weight: 600;
       color: #333;
-}
+    }
 
     .option-btn:hover {
       transform: translateY(-1px);
@@ -402,8 +409,6 @@
       box-shadow: 0 14px 30px rgba(79, 70, 229, 0.5);
     }
 
-    /* کمی بزرگ‌تر برای دسکتاپ، ولی همچنان بدون اسکرول */
-
     @media (min-width: 768px) {
       .game-container {
         max-width: 640px;
@@ -440,8 +445,6 @@
         font-size: 14px;
       }
     }
-
-    /* اگر ارتفاع خیلی کم باشد، فاصله‌ها را باز هم کم کن */
 
     @media (max-height: 650px) {
       .game-container {
@@ -565,111 +568,92 @@
     };
 
     const animals = [
+      { nameFa: "پلنگ ایرانی", image: "Images/Persian_Leopard_sitting.jpg", countryFa: "ایران", correctFlagKey: "iran", options: ["iran", "india", "russia", "germany"] },
+      { nameFa: "بز کوهی", image: "Images/boz.jpeg", countryFa: "ایران (کوهستان‌های البرز و زاگرس)", correctFlagKey: "iran", options: ["iran", "india", "russia", "germany"] },
+      { nameFa: "گوزن زرد ایرانی", image: "Images/Persian_fallow_deer.jpg", countryFa: "ایران", correctFlagKey: "iran", options: ["iran", "kenya", "norway", "china"] },
+      { nameFa: "عقاب طلایی", image: "Images/Golden_eagle_in_flight.jpg", countryFa: "ایران و بعضی کشورهای کوهستانی", correctFlagKey: "iran", options: ["iran", "usa", "japan", "southAfrica"] },
+      { nameFa: "تاس‌ماهی ایرانی", image: "Images/Acipenser_persicus.jpg", countryFa: "ایران (دریای خزر)", correctFlagKey: "iran", options: ["iran", "russia", "norway", "canada"] },
+      { nameFa: "کانگورو", image: "Images/Kangaroo_Australia.jpeg", countryFa: "استرالیا", correctFlagKey: "australia", options: ["australia", "usa", "germany", "iran"] },
+      { nameFa: "پاندای غول‌پیکر", image: "Images/Grosser_Panda.jpeg", countryFa: "چین", correctFlagKey: "china", options: ["china", "japan", "france", "canada"] },
+      { nameFa: "شیر آفریقایی", image: "Images/Lion_waiting_in_Namibia.jpg", countryFa: "کنیا و دیگر کشورهای آفریقایی", correctFlagKey: "kenya", options: ["kenya", "southAfrica", "iran", "russia"] },
+      { nameFa: "خرس قطبی", image: "Images/Polar_Bear_-_Alaska.jpg", countryFa: "کانادا و مناطق شمالگان", correctFlagKey: "canada", options: ["canada", "norway", "russia", "usa"] },
+      { nameFa: "عقاب سرسفید", image: "Images/Bald_Eagle_in_Flight.jpeg", countryFa: "ایالات متحده آمریکا", correctFlagKey: "usa", options: ["usa", "canada", "brazil", "germany"] },
+      { nameFa: "دلقک‌ماهی", image: "Images/Clownfish.jpeg", countryFa: "کنار سواحل استرالیا", correctFlagKey: "australia", options: ["australia", "japan", "india", "france"] },
+      { nameFa: "پنگوئن امپراتور", image: "Images/pinguin.jpeg", countryFa: "نزدیک قارهٔ جنوبگان (مثلاً سواحل آرژانتین)", correctFlagKey: "argentina", options: ["argentina", "southAfrica", "norway", "australia"] },
+      { nameFa: "مار کبری هندی", image: "Images/Indian_cobra.jpg", countryFa: "هند", correctFlagKey: "india", options: ["india", "china", "brazil", "iran"] },
+      { nameFa: "توکان منقاررنگی", image: "Images/parrot.jpeg", countryFa: "جنگل‌های بارانی برزیل و آمریکای مرکزی", correctFlagKey: "brazil", options: ["brazil", "argentina", "france", "japan"] },
+      { nameFa: "نهنگ آبی", image: "Images/whale.jpeg", countryFa: "اقیانوس‌های سرد نزدیک نروژ و شمال اروپا", correctFlagKey: "norway", options: ["norway", "canada", "australia", "russia"] },
       {
-        nameFa: "پلنگ ایرانی",
-        image: "Images/Persian_Leopard_sitting.jpg",
-        countryFa: "ایران",
-        correctFlagKey: "iran",
-        options: ["iran", "india", "russia", "germany"]
-      },
-      {
-        nameFa: "بز کوهی",
-        image: "Images/boz.jpeg",
-        countryFa: "ایران (کوهستان‌های البرز و زاگرس)",
-        correctFlagKey: "iran",
-        options: ["iran", "india", "russia", "germany"]
-      },
-      {
-        nameFa: "گوزن زرد ایرانی",
-        image: "Images/Persian_fallow_deer.jpg",
-        countryFa: "ایران",
-        correctFlagKey: "iran",
-        options: ["iran", "kenya", "norway", "china"]
-      },
-      {
-        nameFa: "عقاب طلایی",
-        image: "Images/Golden_eagle_in_flight.jpg",
-        countryFa: "ایران و بعضی کشورهای کوهستانی",
-        correctFlagKey: "iran",
-        options: ["iran", "usa", "japan", "southAfrica"]
-      },
-      {
-        nameFa: "تاس‌ماهی ایرانی",
-        image: "Images/Acipenser_persicus.jpg",
-        countryFa: "ایران (دریای خزر)",
-        correctFlagKey: "iran",
-        options: ["iran", "russia", "norway", "canada"]
-      },
-      {
-        nameFa: "کانگورو",
-        image: "Images/Kangaroo_Australia.jpeg",
-        countryFa: "استرالیا",
+        nameFa: "کوالا",
+        image: "Images/Koala.jpg",
+        countryFa: "استرالیا (جنگل‌های اوکالیپتوس)",
         correctFlagKey: "australia",
         options: ["australia", "usa", "germany", "iran"]
       },
       {
-        nameFa: "پاندای غول‌پیکر",
-        image: "Images/Grosser_Panda.jpeg",
-        countryFa: "چین",
-        correctFlagKey: "china",
-        options: ["china", "japan", "france", "canada"]
-      },
-      {
-        nameFa: "شیر آفریقایی",
-        image: "Images/Lion_waiting_in_Namibia.jpg",
-        countryFa: "کنیا و دیگر کشورهای آفریقایی",
-        correctFlagKey: "kenya",
-        options: ["kenya", "southAfrica", "iran", "russia"]
-      },
-      {
-        nameFa: "خرس قطبی",
-        image: "Images/Polar_Bear_-_Alaska.jpg",
-        countryFa: "کانادا و مناطق شمالگان",
-        correctFlagKey: "canada",
-        options: ["canada", "norway", "russia", "usa"]
-      },
-      {
-        nameFa: "عقاب سرسفید",
-        image: "Images/Bald_Eagle_in_Flight.jpeg",
-        countryFa: "ایالات متحده آمریکا",
-        correctFlagKey: "usa",
-        options: ["usa", "canada", "brazil", "germany"]
-      },
-      {
-        nameFa: "دلقک‌ماهی",
-        image: "Images/Clownfish.jpeg",
-        countryFa: "کنار سواحل استرالیا",
-        correctFlagKey: "australia",
-        options: ["australia", "japan", "india", "france"]
-      },
-      {
-        nameFa: "پنگوئن امپراتور",
-        image: "Images/pinguin.jpeg",
-        countryFa: "نزدیک قارهٔ جنوبگان (مثلاً سواحل آرژانتین)",
-        correctFlagKey: "argentina",
-        options: ["argentina", "southAfrica", "norway", "australia"]
-      },
-      {
-        nameFa: "مار کبری هندی",
-        image: "Images/Indian_Cobra.jpg",
+        nameFa: "ببر بنگال",
+        image: "Images/bengal_tiger.jpg",
         countryFa: "هند",
         correctFlagKey: "india",
         options: ["india", "china", "brazil", "iran"]
       },
       {
-        nameFa: "توکان منقاررنگی",
-        image: "Images/parrot.jpeg",
-        countryFa: "جنگل‌های بارانی برزیل و آمریکای مرکزی",
-        correctFlagKey: "brazil",
-        options: ["brazil", "argentina", "france", "japan"]
+        nameFa: "گوزن شمالی (رِین‌دییر)",
+        image: "Images/reindeer.jpg",
+        countryFa: "نروژ و کشورهای سرد شمال اروپا",
+        correctFlagKey: "norway",
+        options: ["norway", "canada", "russia", "germany"]
       },
       {
-        nameFa: "نهنگ آبی",
-        image: "Images/whale.jpeg",
-        countryFa: "اقیانوس‌های سرد نزدیک نروژ و شمال اروپا",
-        correctFlagKey: "norway",
-        options: ["norway", "canada", "australia", "russia"]
+        nameFa: "گوریل کوهستانی",
+        image: "Images/mountain_gorilla.jpg",
+        countryFa: "کوهستان‌های شرق آفریقا (مثلاً کنیا و همسایه‌ها)",
+        correctFlagKey: "kenya",
+        options: ["kenya", "southAfrica", "brazil", "india"]
+      },
+      {
+        nameFa: "جگوار",
+        image: "Images/jaguar.jpg",
+        countryFa: "جنگل‌های بارانی برزیل و آمریکای جنوبی",
+        correctFlagKey: "brazil",
+        options: ["brazil", "argentina", "france", "usa"]
+      },
+      {
+        nameFa: "خرس قهوه‌ای سیبری",
+        image: "Images/siberian_brown_bear.jpg",
+        countryFa: "روسیه (مناطق جنگلی و کوهستانی)",
+        correctFlagKey: "russia",
+        options: ["russia", "norway", "iran", "canada"]
+      },
+      {
+      nameFa: "میمون عنکبوتی",
+      image: "Images/spider_monkey.jpg",
+      countryFa: "جنگل‌های بارانی استوایی آمریکای مرکزی و جنوبی",
+      correctFlagKey: "brazil",
+      options: ["brazil", "argentina", "france", "iran"]
+    },
+    {
+      nameFa: "تنبل سه‌انگشتی",
+      image: "Images/three_toed_sloth.png",
+      countryFa: "جنگل‌های بارانی استوایی آمریکای مرکزی (مثل کاستاریکا)",
+      correctFlagKey: "brazil",
+      options: ["brazil", "southAfrica", "india", "china"]
+    },
+      {
+        nameFa: "سمور دریایی",
+        image: "Images/sea_otter.png",
+        countryFa: "سواحل اقیانوس آرام (به‌ویژه آلاسکای آمریکا)",
+        correctFlagKey: "usa",
+        options: ["usa", "canada", "japan", "russia"]
+      },
+      {
+        nameFa: "گراز وحشی اروپایی",
+        image: "Images/wild_boar.jpg",
+        countryFa: "جنگل‌های اروپا (مثلاً آلمان و اطراف)",
+        correctFlagKey: "germany",
+        options: ["germany", "france", "norway", "iran"]
       }
+
     ];
 
     const imageEl = document.getElementById("animal-image");
@@ -689,8 +673,26 @@
     let questionsOrder = [];
     let currentIndex = 0;
     let stars = 0;
-    const maxStars = animals.length * 2; // ۳۰ ستاره
+    const maxStars = animals.length * 2;
     let answered = false;
+
+    const imageCache = {};
+
+    function preloadImages() {
+      const promises = animals.map(animal => {
+        return new Promise(resolve => {
+          const img = new Image();
+          img.src = animal.image;
+          img.onload = () => {
+            imageCache[animal.image] = img;
+            resolve();
+          };
+          img.onerror = () => resolve();
+        });
+      });
+
+      return Promise.all(promises);
+    }
 
     function shuffleArray(array) {
       for (let i = array.length - 1; i > 0; i--) {
@@ -702,13 +704,18 @@
     function resetMessage() {
       messageEl.textContent = "";
       messageEl.className = "";
-      messageEl.id = "message"; // keep id
+      messageEl.id = "message";
       messageEl.style.display = "none";
     }
 
     function startGame() {
-      questionsOrder = [...animals];
-      shuffleArray(questionsOrder);
+    // Shuffle all 25 animals
+      const pool = [...animals];
+      shuffleArray(pool);
+
+      // Pick the first 15 animals randomly
+      questionsOrder = pool.slice(0, 15);
+
       currentIndex = 0;
       stars = 0;
       answered = false;
@@ -731,7 +738,8 @@
 
       const question = questionsOrder[currentIndex];
 
-      imageEl.src = question.image;
+      const cached = imageCache[question.image];
+      imageEl.src = cached ? cached.src : question.image;
       imageEl.alt = question.nameFa;
 
       const optionKeys = [...question.options];
@@ -742,12 +750,12 @@
         const flagInfo = FLAGS[key];
 
         btn.dataset.flagKey = key;
-btn.innerHTML = `
-  <span class="option-content">
-    <img class="flag" src="https://flagcdn.com/w40/${flagInfo.code}.png" alt="${flagInfo.nameFa}">
-    <span class="country-name">${flagInfo.nameFa}</span>
-  </span>
-`;
+        btn.innerHTML = `
+          <span class="option-content">
+            <img class="flag" src="https://flagcdn.com/w40/${flagInfo.code}.png" alt="${flagInfo.nameFa}">
+            <span class="country-name">${flagInfo.nameFa}</span>
+          </span>
+        `;
       });
 
       updateScore();
@@ -851,10 +859,19 @@ btn.innerHTML = `
       loadQuestion();
     });
 
-    // Start screen logic
-    startBtn.addEventListener("click", () => {
+    startBtn.addEventListener("click", async () => {
+      startBtn.disabled = true;
+      const originalText = startBtn.textContent;
+      startBtn.textContent = "در حال بارگذاری عکس‌ها...";
+
+      await preloadImages();
+
       startScreen.classList.remove("active");
       gameScreen.classList.add("active");
+
+      startBtn.textContent = originalText;
+      startBtn.disabled = false;
+
       startGame();
     });
   </script>
