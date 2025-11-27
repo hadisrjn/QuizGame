@@ -17,11 +17,7 @@
     }
 
     body {
-<<<<<<< HEAD
       font-family: Arial;
-=======
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
->>>>>>> f9913d9e21d793542a4bce6425cfc31babb405fd
       background: radial-gradient(circle at top, #f5e9ff 0, #f5f7ff 40%, #f5f7ff 100%);
       color: #222;
       overflow: hidden;
@@ -677,7 +673,7 @@
     let questionsOrder = [];
     let currentIndex = 0;
     let stars = 0;
-    const maxStars = animals.length * 2;
+    let maxStars = 0;
     let answered = false;
 
     const imageCache = {};
@@ -713,12 +709,14 @@
     }
 
     function startGame() {
-    // Shuffle all 25 animals
       const pool = [...animals];
       shuffleArray(pool);
 
-      // Pick the first 15 animals randomly
+      // pick 15 questions
       questionsOrder = pool.slice(0, 15);
+
+      // max stars = 2 per question actually used
+      maxStars = questionsOrder.length * 2;
 
       currentIndex = 0;
       stars = 0;
@@ -729,6 +727,7 @@
       loadQuestion();
       updateScore();
     }
+
 
     function loadQuestion() {
       answered = false;
@@ -764,18 +763,22 @@
 
       updateScore();
     }
-
     function updateScore() {
       const totalQuestions = questionsOrder.length || animals.length;
       const currentQuestionNumber = currentIndex + 1;
 
       const progressPercent = Math.round((currentIndex / totalQuestions) * 100);
 
-      progressText.textContent = `${progressPercent}٪`;
-      questionText.textContent = `${currentQuestionNumber} از ${totalQuestions}`;
-      starsText.textContent = `${stars} از ${maxStars}`;
-      progressFill.style.width = `${Math.min(100, (currentIndex / totalQuestions) * 100)}%`;
+      progressText.textContent =
+        `${toPersianDigits(progressPercent)}٪`;
+      questionText.textContent =
+        `${toPersianDigits(currentQuestionNumber)} از ${toPersianDigits(totalQuestions)}`;
+      starsText.textContent =
+        `${toPersianDigits(stars)} از ${toPersianDigits(maxStars)}`;
+      progressFill.style.width =
+        `${Math.min(100, (currentIndex / totalQuestions) * 100)}%`;
     }
+
 
     function endGame() {
       const gameContainer = document.querySelector(".game-container");
